@@ -423,18 +423,24 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
 
 .lugar-collage{
   display:grid;
-  grid-template-columns:1.25fr .75fr;
+  grid-template-columns:1fr 1fr 1fr;
   grid-template-rows:1fr 1fr;
   gap:clamp(1rem,2.2vw,1.7rem);
   margin-top:clamp(2.5rem,5vw,4rem);
-  aspect-ratio:16/10;
+  aspect-ratio:16/9;
 }
-.lugar-collage .marco{ height:100%; }
-.lugar-collage .marco:nth-child(1){ grid-row:span 2; }
+.lugar-collage .marco{ height:100%; width:100%; }
+.lugar-collage .marco:nth-child(1){ grid-column:span 2; grid-row:span 1; }
+.lugar-collage .marco:nth-child(2){ grid-column:span 1; grid-row:span 2; }
+.lugar-collage .marco:nth-child(3){ grid-column:span 1; grid-row:span 1; }
+.lugar-collage .marco:nth-child(4){ grid-column:span 1; grid-row:span 1; }
 @media (max-width:820px){
   .lugar-collage{ grid-template-columns:1fr; grid-template-rows:none; aspect-ratio:auto; }
   .lugar-collage .marco{ height:auto; aspect-ratio:4/3; }
-  .lugar-collage .marco:nth-child(1){ grid-row:auto; }
+  .lugar-collage .marco:nth-child(1),
+  .lugar-collage .marco:nth-child(2),
+  .lugar-collage .marco:nth-child(3),
+  .lugar-collage .marco:nth-child(4){ grid-column:auto; grid-row:auto; }
 }
 .lugar-datos{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.4rem,3vw,2.6rem); margin-top:clamp(2.5rem,5vw,3.6rem); }
 .dato{ padding-top:1.3rem; border-top:2px solid var(--verde); }
@@ -861,7 +867,7 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
       </div>
       <div class="capa bienvenida-foto revela d1">
         <div class="arco" style="height:100%">
-          <img src="assets/jardin.jpg" alt="Jardín del Refugio con camino de piedra, flores y las montañas de Santa Eulalia al fondo">
+          <img src="assets/Jardin.png" alt="Jardín del Refugio con camino de piedra, flores y las montañas de Santa Eulalia al fondo">
         </div>
       </div>
     </div>
@@ -913,23 +919,23 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
 
       <article class="taller revela">
         <div class="taller-img-container">
-          <img src="assets/terraza.jpg" alt="Terraza del Refugio junto a la piscina">
+          <img src="assets/Intarsia.png" alt="Taller de Crochet Intarsia">
         </div>
         <div class="taller-content">
           <p class="mini">Taller de crochet · 3 horas</p>
           <h3 class="display">Crochet Intarsia</h3>
-          <p class="guia">Aprenderás a construir figuras y bloques de color dentro del tejido, sin cortar el hilo en cada cambio. Te llevas el patrón completo con el paso a paso y todos los materiales para tejer tu proyecto final.</p>
+          <p class="guia">Aprenderás a construir figuras y bloques de color dentro del tejido, sin cortar el hilo en cada cambio. Te llevarás el patrón completo con el paso a paso y todos los materiales para tejer tu proyecto final.</p>
         </div>
       </article>
 
       <article class="taller revela d1">
         <div class="taller-img-container">
-          <img src="assets/sala.jpg" alt="Sala de estar acogedora del Refugio">
+          <img src="assets/Tapestry.png" alt="Taller de Crochet Mosaico">
         </div>
         <div class="taller-content">
           <p class="mini">Taller de crochet · 3 horas</p>
-          <h3 class="display">Crochet Tapestry</h3>
-          <p class="guia">La técnica para tejer diseños gráficos llevando dos hilos a la vez. Incluye patrón detallado y los materiales de tu proyecto.</p>
+          <h3 class="display">Crochet Mosaico</h3>
+          <p class="guia">La técnica para tejer diseños gráficos llevando dos hilos a la vez. Te llevarás el patrón completo con el paso a paso y todos los materiales para tejer tu proyecto final.</p>
         </div>
       </article>
 
@@ -972,7 +978,7 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
     </div>
 
     <!-- Imagen panorámica -->
-    <div class="revela d1" style="width: 100%; height: clamp(280px, 42vw, 500px); background-image: url('assets/manta.png?v=2'); background-size: cover; background-position: center 25%; border-radius: 14px; margin-bottom: 3.5rem;"></div>
+    <div class="revela d1" style="width: 100%; height: clamp(280px, 42vw, 500px); background-image: url('assets/Manta.png?v=3'); background-size: cover; background-position: center; border-radius: 14px; margin-bottom: 3.5rem;"></div>
 
     <!-- Pasos I al VI -->
     <div class="cal-momentos" style="margin-top: 0; padding-top: 2rem; border-top: 1px solid var(--linea); row-gap: 3.5rem;">
@@ -1026,11 +1032,12 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
       <p class="guia" style="max-width: 58ch; margin: 0 auto 0;">Un club campestre rodeado de jardines y montañas, a una hora y media de Lima y a un mundo de distancia del ruido. Piscina, áreas verdes, sala de talleres, restaurante y bar.</p>
     </div>
 
-    <!-- Collage de fotos (disposición igual) -->
+    <!-- Collage de fotos (disposición bento) -->
     <div class="lugar-collage">
-      <div class="marco revela"><img src="assets/piscina.jpg" alt="Piscina del Refugio rodeada de palmeras y jardines"></div>
-      <div class="marco revela d1"><img src="assets/sala.jpg" alt="Sala de estar con chimenea de piedra, muebles de mimbre y cortinas claras"></div>
-      <div class="marco revela d2"><img src="assets/jardin.jpg" alt="Camino de piedra entre los jardines del Refugio"></div>
+      <div class="marco revela"><img src="assets/Piscina.png" alt="Piscina del Refugio rodeada de palmeras"></div>
+      <div class="marco revela d1"><img src="assets/Dormitorio 1.png" alt="Dormitorio 1 del Refugio"></div>
+      <div class="marco revela d2"><img src="assets/Sala.png" alt="Sala de estar con chimenea de piedra"></div>
+      <div class="marco revela d2"><img src="assets/Dormitorio 2.png" alt="Dormitorio 2 del Refugio"></div>
     </div>
 
     <!-- Datos: alojamiento, alimentación, transporte -->
@@ -1093,7 +1100,7 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
           </div>
           <dl>
             <dt>08:30 a 09:30</dt><dd>Desayuno</dd>
-            <dt>10:00 a 13:00</dt><dd>Taller de Crochet Tapestry</dd>
+            <dt>10:00 a 13:00</dt><dd>Taller de Crochet Mosaico</dd>
             <dt>13:30 a 15:00</dt><dd>Almuerzo</dd>
             <dt>15:30 a 18:30</dt><dd>Sesión de journaling creativo</dd>
             <dt>19:00 a 20:30</dt><dd>Cena</dd>
@@ -1256,7 +1263,7 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
         </dl>
         <div class="cancelacion">
           <p class="mini" style="margin-bottom:.6rem">Política de cancelación</p>
-          <p>Puedes cancelar hasta el 21 de octubre de 2026. Se reintegra el 70&nbsp;% si la vacante es reemplazada o el grupo se completa, y el 50&nbsp;% si no logra cubrirse. En ambos casos el reembolso se hará entre el 9 y el 15 de noviembre de 2026.</p>
+          <p>Puedes cancelar hasta el 20 de octubre de 2026. Se reintegra el 70&nbsp;% si la vacante es reemplazada o el grupo se completa, y el 50&nbsp;% si no logra cubrirse. En ambos casos el reembolso se hará entre el 9 y el 15 de noviembre de 2026.</p>
         </div>
       </div>
 
@@ -1265,16 +1272,49 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
 </section>
 
 <!-- ═══ Cierre ════════════════════════════════════════ -->
-<section class="cierre" id="contacto">
-  <div class="cierre-fondo">
-    <img src="assets/piscina.jpg" alt="La piscina del Refugio rodeada de palmeras y vegetación">
-  </div>
-  <div class="cierre-velo"></div>
+<section class="fondo-crema" id="contacto" style="padding-block:clamp(6rem, 12vw, 10rem);">
   <div class="lienzo">
-    <p class="script claro revela">Te esperamos</p>
-    <h2 class="display revela d1">Tejemos juntas,<br>crecemos juntas</h2>
-    <p class="revela d1">Escríbenos y te contamos cómo separar tu lugar en el retiro.</p>
-    <a class="boton revela d2" href="https://wa.link/dvmduv" target="_blank" rel="noopener">Quiero mi lugar</a>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:clamp(3rem, 6vw, 5rem); align-items:start;">
+      
+      <!-- Columna Izquierda -->
+      <div style="display:flex; flex-direction:column; gap:clamp(3rem, 6vw, 4.5rem);">
+        <div class="revela d1">
+          <h2 class="display" style="font-size:clamp(2.2rem, 4.5vw, 3.5rem); margin-bottom:1.5rem; color:var(--verde); line-height:1.1;">Las mejores historias siempre comienzan con una decisión.</h2>
+          <p style="color:var(--tinta-med); font-size:1.1rem; line-height:1.6;">Quizá hoy solo estés pensando en un fin de semana diferente. Pero dentro de unos meses podrías recordar estos tres días como el momento en que conociste nuevas amigas, descubriste nuevas técnicas y recuperaste tiempo para ti.</p>
+        </div>
+        
+        <div class="revela d2">
+          <img src="assets/Mosaico.png" alt="Mosaico a crochet" style="width:100%; border-radius:12px; box-shadow:var(--sombra-m);">
+        </div>
+        
+        <div class="revela d3">
+          <p style="margin-bottom:1.5rem; font-weight:500; font-size:1.15rem; color:var(--tinta);">Ahora solo falta una cosa... que tú también seas parte de ella.</p>
+          <p style="margin-bottom:2.5rem; font-family:'Jost', sans-serif; letter-spacing:0.1em; text-transform:uppercase; font-size:0.85rem; border-bottom:1px solid rgba(0,0,0,0.1); display:inline-block; padding-bottom:0.3rem; color:var(--tinta);">Solo 20 participantes</p><br>
+          <a class="boton" href="https://wa.link/dvmduv" target="_blank" rel="noopener">QUIERO VIVIR ESTA EXPERIENCIA</a>
+        </div>
+      </div>
+
+      <!-- Columna Derecha -->
+      <div style="display:flex; flex-direction:column; gap:clamp(3rem, 6vw, 4.5rem); margin-top:clamp(0rem, 5vw, 4rem);">
+        <div class="revela d1">
+          <img src="assets/Mesa de mujeres.png" alt="Mesa de tejedoras" style="width:100%; border-radius:12px; box-shadow:var(--sombra-m);">
+        </div>
+        
+        <div class="revela d2">
+          <p style="color:var(--tinta-med); font-size:1.1rem; line-height:1.6;">Por fin, las tejedoras de Lima tenemos una experiencia creada especialmente para nosotras. Vuelve a casa con el corazón tan lleno como tu maleta.</p>
+        </div>
+        
+        <div class="revela d3" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; position:relative;">
+          <div style="border-radius:12px; overflow:hidden; box-shadow:var(--sombra-m); transform:translateY(2.5rem);">
+             <img src="assets/terraza.jpg" alt="Terraza del Refugio" style="width:100%; height:100%; object-fit:cover; aspect-ratio:3/4;">
+          </div>
+          <div style="border-radius:12px; overflow:hidden; box-shadow:var(--sombra-m); transform:translateY(-2.5rem);">
+             <img src="assets/Jardin.png" alt="Jardines del Refugio" style="width:100%; height:100%; object-fit:cover; aspect-ratio:3/4;">
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 

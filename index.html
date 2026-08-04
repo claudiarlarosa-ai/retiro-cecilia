@@ -392,10 +392,24 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
   min-height: 5.4rem;
 }
 
+.taller-regalo {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
 @media (max-width: 900px) {
   .talleres {
     grid-template-columns: 1fr;
     gap: 2.2rem;
+  }
+  .taller-regalo {
+    grid-column: 1;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   .taller p {
     min-height: auto;
@@ -950,7 +964,7 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
         </div>
       </article>
       
-      <article class="taller revela" style="grid-column: span 3; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; background: transparent; border: none; box-shadow: none;">
+      <article class="taller revela taller-regalo">
         <div style="background:linear-gradient(160deg, rgba(255,253,250,.95), rgba(244,235,223,.9)); padding: 2rem; border-radius: 12px; border: 1px solid rgba(63,51,42,0.08);">
           <p class="mini">Regalo especial</p>
           <h3 class="display">Dos kits de bienvenida</h3>
@@ -1288,9 +1302,8 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
         </div>
         
         <div class="revela d3">
-          <p style="margin-bottom:1.5rem; font-weight:500; font-size:1.15rem; color:var(--tinta);">Ahora solo falta una cosa... que tú también seas parte de ella.</p>
-          <p style="margin-bottom:2.5rem; font-family:'Jost', sans-serif; letter-spacing:0.1em; text-transform:uppercase; font-size:0.85rem; border-bottom:1px solid rgba(0,0,0,0.1); display:inline-block; padding-bottom:0.3rem; color:var(--tinta);">Solo 20 participantes</p><br>
-          <a class="boton" href="https://wa.link/dvmduv" target="_blank" rel="noopener">QUIERO VIVIR ESTA EXPERIENCIA</a>
+          <p style="margin-bottom:1.5rem; font-weight:500; font-size:1.15rem; color:var(--tinta);">Ahora solo falta una cosa... que tú también seas parte de ella. <a href="https://wa.link/dvmduv" target="_blank" rel="noopener" style="color:var(--tinta); text-decoration:underline; font-weight:bold;">Quiero vivir esta experiencia.</a></p>
+          <p style="margin-bottom:2.5rem; font-family:'Jost', sans-serif; letter-spacing:0.1em; text-transform:uppercase; font-size:0.85rem; border-bottom:1px solid rgba(0,0,0,0.1); display:inline-block; padding-bottom:0.3rem; color:var(--tinta);">Solo 20 participantes</p>
         </div>
       </div>
 

@@ -277,23 +277,23 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
   font-family:'Jost',sans-serif; font-size:0.55rem; letter-spacing:0.1em;
   text-transform:uppercase; color:var(--crema);
 }
+.portada-texto { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .portada .fecha{
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--terracota);
-  margin: 0.2rem 0 1.8rem 0;
+  margin: 0.2rem auto 1.8rem auto;
   font-weight: 400;
   display: block;
 }
-.portada .entrada{ font-size: clamp(0.92rem, 0.88rem + 0.2vw, 1.02rem); color: var(--tinta-med); margin-top: 0; margin-bottom: 1.8rem; max-width: 44ch; line-height: 1.7; }
-.portada-acciones{ display: flex; flex-wrap: wrap; gap: 1rem 1.6rem; align-items: center; margin-top: 0; }
+.portada .entrada{ font-size: clamp(0.92rem, 0.88rem + 0.2vw, 1.02rem); color: var(--tinta-med); margin-top: 0; margin-bottom: 1.8rem; max-width: 44ch; line-height: 1.7; margin-inline: auto; }
+.portada-acciones{ display: flex; flex-wrap: wrap; gap: 1rem 1.6rem; align-items: center; justify-content: center; margin-top: 0; }
 
 @media (max-width:900px){
   .portada-reja{ grid-template-columns:1fr; gap:3.2rem; }
-  .portada-texto{ order:-1; text-align:center; }
-  .portada-texto p{ margin-inline:auto; }
-  .portada-acciones{ justify-content:center; }
+  .portada-texto{ order:-1; }
+  .portada .fecha{ letter-spacing:.16em; }
   .portada .fecha{ letter-spacing:.16em; }
   .portada-foto{ aspect-ratio:4/4.2; max-height:50vh; max-width:380px; }
   .portada-foto::before{ inset:-1.4rem -1rem 22% -1.6rem; }
@@ -926,14 +926,15 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
         <svg class="sello-fecha" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="55" cy="55" r="50" stroke="var(--terracota)" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.5"/>
           <path id="sello-arc" d="M 55,55 m -42,0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0" fill="none"/>
-          <text font-family="Jost, sans-serif" font-size="7.5" letter-spacing="3.5" fill="var(--terracota)" font-weight="400">
-            <textPath href="#sello-arc" startOffset="0%">20 · 21 · 22 NOVIEMBRE 2026 · SANTA EULALIA ·</textPath>
+          <text font-family="Jost, sans-serif" font-size="6.8" letter-spacing="2.5" fill="var(--terracota)" font-weight="400">
+            <textPath href="#sello-arc" startOffset="0%">20 · 21 · 22 NOVIEMBRE 2026 · SANTA EULALIA · </textPath>
           </text>
         </svg>
       </div>
       <div class="portada-texto revela d1">
         <p class="script">Un fin de semana para ti</p>
-        <h1 class="display" style="line-height:1.05; margin-bottom:0.15rem;">Arte entre Puntadas</h1>
+        <h1 style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); border:0; padding:0; margin:0;">Arte entre Puntadas</h1>
+        <img src="assets/Logo-transparente.png" alt="Logo de Arte entre Puntadas" style="display:inline-block; max-width:250px; width:100%; height:auto; margin-bottom:1.5rem; pointer-events:none;">
         <p class="fecha">20 al 22 de noviembre de 2026 · Santa Eulalia</p>
         <p class="entrada">Un retiro de crochet y journaling creativo para hacer una pausa, dejar atrás las responsabilidades y regalarte un fin de semana inolvidable.</p>
         <div class="portada-acciones">
@@ -979,7 +980,7 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
     <div class="bienvenida-reja">
       <div class="revela">
         <p class="guia">Si alguna vez soñaste con escapar de la rutina, tejer rodeada de naturaleza, aprender nuevas técnicas, compartir con otras apasionadas del crochet y regalarte un fin de semana solo para ti... ese momento ha llegado.</p>
-        <p class="guia">Te presentamos Arte entre Puntadas, un retiro de 3 días y 2 noches donde disfrutarás de alojamiento, alimentación completa, deliciosa gastronomía peruana preparada especialmente para consentirte durante todo el fin de semana, transporte desde Miraflores, dos talleres de crochet, un taller de Journaling Creativo, kits, patrones, materiales y muchas sorpresas.</p>
+        <p class="guia">Te presentamos <strong>Arte entre Puntadas</strong>, un retiro de 3 días y 2 noches donde disfrutarás de alojamiento, alimentación completa, deliciosa gastronomía peruana preparada especialmente para consentirte durante todo el fin de semana, transporte desde Miraflores, dos talleres de crochet, un taller de Journaling Creativo, kits, patrones, materiales y muchas sorpresas.</p>
         <p class="guia">Además, vivirás una experiencia única con nuestro CAL (Crochet Along): un proyecto colaborativo que comenzaremos antes del retiro, avanzaremos juntas durante el evento y que te permitirá disfrutar del crochet incluso antes de hacer la maleta.</p>
         
         <p class="guia" style="font-weight: 500; font-size: 1.1em; color: var(--terracota-h); margin-top: 1.8rem; margin-bottom: 0.5rem; line-height: 1.4;">
@@ -994,7 +995,7 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
       </div>
       <div class="capa bienvenida-foto revela d1">
         <div class="arco" style="height:100%">
-          <img src="assets/noche.jpg" alt="La piscina del Refugio de Santa Eulalia iluminada con guirnaldas de luces al anochecer">
+          <img src="assets/Piscina.png" alt="La piscina del Refugio rodeada de palmeras">
         </div>
       </div>
     </div>
@@ -1361,12 +1362,12 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
         <div class="tarifa destacada">
           <p class="mini">Precio de lanzamiento</p>
           <span class="tarifa-cifra">S/ 1,750</span>
-          <p class="vigencia">Vigente del 8 al 24 de agosto</p>
+          <p class="vigencia">Del 15 al 31 de Agosto</p>
         </div>
         <div class="tarifa">
           <p class="mini">Precio regular</p>
           <span class="tarifa-cifra">S/ 1,850</span>
-          <p class="vigencia">Del 25 de agosto al 15 de setiembre</p>
+          <p class="vigencia">Del 1ro al 20 de Setiembre</p>
         </div>
         <div style="margin-top:auto; padding-top:1.8rem;">
           <a class="boton" style="display:inline-flex; align-items:center; justify-content:center; gap:0.5rem;" href="https://wa.link/dvmduv" target="_blank" rel="noopener">

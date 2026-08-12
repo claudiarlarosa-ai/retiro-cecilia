@@ -838,7 +838,8 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
   padding: clamp(1.8rem, 3vw, 2.5rem);
   box-shadow: var(--sombra-m);
 }
-.formulario-interes input {
+.formulario-interes input,
+.formulario-interes select {
   width: 100%;
   padding: 0.85rem 1.2rem;
   margin-bottom: 1rem;
@@ -849,15 +850,24 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
   font-size: 0.95rem;
   color: var(--tinta);
   transition: var(--trans-suave);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
-.formulario-interes input:focus {
+.formulario-interes input:focus,
+.formulario-interes select:focus {
   outline: none;
   border-color: var(--terracota-cl);
   box-shadow: 0 0 0 3px rgba(169, 113, 75, 0.15);
 }
-.formulario-interes input::placeholder {
+.formulario-interes input::placeholder,
+.formulario-interes select:invalid {
   color: var(--tinta-luz);
   opacity: 0.8;
+}
+.formulario-interes select option {
+  color: var(--tinta);
+  opacity: 1;
 }
 .formulario-interes .boton {
   margin-top: 0.5rem;
@@ -920,7 +930,7 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
       <a href="#lugar">El lugar</a>
       <a href="#programa">Programa</a>
       <a href="#testimonios">Testimonios</a>
-      <a class="boton" href="#precio">Reservar</a>
+      <a class="boton" href="#contacto">Reservar</a>
     </div>
   </div>
 </nav>
@@ -1378,12 +1388,18 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
       <div class="tarjeta revela">
         <div class="tarifa destacada">
           <p class="mini">Precio de lanzamiento</p>
-          <span class="tarifa-cifra">S/ 1,750</span>
+          <p style="margin:0.5rem 0 0; font-size:0.95rem; color:var(--tinta-med);">Habitación simple:</p>
+          <span class="tarifa-cifra" style="font-size:2.4rem; margin-bottom:0.6rem;">S/ 1,700</span>
+          <p style="margin:0; font-size:0.95rem; color:var(--tinta-med);">Habitación doble:</p>
+          <span class="tarifa-cifra" style="font-size:2.4rem;">S/ 1,750</span>
           <p class="vigencia">Del 15 al 31 de Agosto</p>
         </div>
         <div class="tarifa">
           <p class="mini">Precio regular</p>
-          <span class="tarifa-cifra">S/ 1,850</span>
+          <p style="margin:0.5rem 0 0; font-size:0.95rem; color:var(--tinta-med);">Habitación simple:</p>
+          <span class="tarifa-cifra" style="font-size:2.4rem; margin-bottom:0.6rem;">S/ 1,800</span>
+          <p style="margin:0; font-size:0.95rem; color:var(--tinta-med);">Habitación doble:</p>
+          <span class="tarifa-cifra" style="font-size:2.4rem;">S/ 1,850</span>
           <p class="vigencia">Del 1ro al 20 de Setiembre</p>
         </div>
         <div style="margin-top:auto; padding-top:1.8rem;">
@@ -1434,13 +1450,22 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
         
         <div class="revela d3 contacto-form">
           <div class="formulario-interes">
-            <h3 class="display" style="font-size:1.4rem; margin-bottom:1rem; color:var(--tinta);">¿Te interesa participar?</h3>
-            <p class="guia" style="font-size:0.95rem; margin-bottom:1.5rem;">Déjanos tus datos para enviarte toda la información detallada.</p>
+            <h3 class="display" style="font-size:1.4rem; margin-bottom:1rem; color:var(--tinta);">¡Quiero separar mi lugar!</h3>
+            <p class="guia" style="font-size:0.95rem; margin-bottom:1.5rem;">Envíanos tus datos para reservar tu cupo.</p>
             
             <form id="form-registro" name="submit-to-google-sheet">
+               <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
                <input type="text" name="Nombre" placeholder="Tu nombre" required>
                <input type="email" name="Correo" placeholder="Tu correo electrónico" required>
                <input type="tel" name="Telefono" placeholder="Tu teléfono / WhatsApp" required>
+               <div style="position:relative;">
+                 <select name="Habitacion" required style="cursor:pointer;">
+                   <option value="" disabled selected>Tipo de habitación</option>
+                   <option value="Simple">Habitación simple</option>
+                   <option value="Doble">Habitación doble</option>
+                 </select>
+                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="position:absolute; right:1.2rem; top:1.1rem; pointer-events:none; color:var(--tinta-luz);"><path d="M7 10l5 5 5-5z"/></svg>
+               </div>
                <button type="submit" class="boton" id="btn-submit" style="width:100%; border:none; background:var(--terracota); color:var(--crema);">Enviar mis datos</button>
             </form>
             <p id="form-msg" style="display:none; font-size:0.9rem; margin-top:1rem; color:var(--verde-hondo); font-weight:500; text-align:center;"></p>
@@ -1593,54 +1618,42 @@ document.querySelectorAll('.faq-btn').forEach(btn => {
 })();
 
 /* Integración con Google Sheets para el formulario */
-const form = document.forms['submit-to-google-sheet'];
+const form = document.getElementById('form-registro');
 const msg = document.getElementById('form-msg');
 const btnSubmit = document.getElementById('btn-submit');
+const scriptURL = 'https://script.google.com/macros/s/AKfycbygUrItcTzBigET6brGTajwJfjmFASkvc3z5QZc3jzKnwWUXXTxa2qQwbxRCi13DBfXLQ/exec';
 
-// AQUI_PONDREMOS_EL_LINK_DEL_SCRIPT: El cliente reemplazará esta URL con la generada en Apps Script
-const scriptURL = 'AQUI_PONDREMOS_EL_LINK_DEL_SCRIPT';
-
-if(form) {
+if (form) {
   form.addEventListener('submit', e => {
     e.preventDefault();
     
-    const originalText = btnSubmit.innerText;
-    btnSubmit.innerText = 'Enviando...';
+    msg.style.display = 'block';
+    msg.style.color = 'var(--tinta)';
+    msg.innerText = 'Enviando...';
     btnSubmit.disabled = true;
+    btnSubmit.style.opacity = '0.7';
     
-    if(scriptURL === 'AQUI_PONDREMOS_EL_LINK_DEL_SCRIPT') {
-      // Modo de prueba para que se vea la interacción antes de vincular el script
-      setTimeout(() => {
-        msg.style.display = 'block';
-        msg.innerText = '¡Gracias por tu interés! (Modo de prueba: Falta vincular Google Sheet)';
-        form.reset();
-        btnSubmit.innerText = originalText;
-        btnSubmit.disabled = false;
-        setTimeout(() => msg.style.display = 'none', 4000);
-      }, 1000);
-      return;
-    }
-
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => {
-        msg.style.display = 'block';
-        msg.style.color = 'var(--verde-hondo)';
-        msg.innerText = '¡Gracias! Nos pondremos en contacto pronto.';
-        form.reset();
-        btnSubmit.innerText = originalText;
-        btnSubmit.disabled = false;
-        setTimeout(() => msg.style.display = 'none', 5000);
-      })
-      .catch(error => {
-        msg.style.display = 'block';
-        msg.style.color = '#c62828';
-        msg.innerText = 'Hubo un error al enviar. Por favor intenta de nuevo.';
-        btnSubmit.innerText = originalText;
-        btnSubmit.disabled = false;
-      });
+    fetch(scriptURL, { 
+      method: 'POST', 
+      body: new FormData(form),
+      mode: 'no-cors' // Evita errores de CORS en local
+    })
+    .then(response => {
+      msg.style.color = 'var(--verde-hondo)';
+      msg.innerText = '¡Gracias! Nos pondremos en contacto contigo pronto.';
+      form.reset();
+      btnSubmit.disabled = false;
+      btnSubmit.style.opacity = '1';
+    })
+    .catch(error => {
+      msg.style.color = '#c62828';
+      msg.innerText = 'Hubo un error al enviar tus datos. Por favor, escríbenos al WhatsApp.';
+      console.error('Error!', error.message);
+      btnSubmit.disabled = false;
+      btnSubmit.style.opacity = '1';
+    });
   });
 }
 </script>
-
 </body>
 </html>

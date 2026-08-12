@@ -8,7 +8,7 @@
 // ─── CONFIGURACIÓN ───────────────────────────────────────────
 const ID_HOJA   = '1ZyyvFLiOuhV-hqgLPxWQT5SwyE6njJHz7C_szJZweYM';   // Tu ID de hoja actual
 const NOMBRE_HOJA = 'Reservas';                                     // Nombre de la pestaña de la hoja
-const CORREO_AVISO = 'tu-correo@ejemplo.com';                       // PON TU CORREO AQUÍ
+const CORREO_AVISO = 'claudiarlarosa@gmail.com';                       // PON TU CORREO AQUÍ
 // ─────────────────────────────────────────────────────────────
 
 function doPost(e) {
@@ -25,6 +25,7 @@ function doPost(e) {
     const correo     = (e.parameter.Correo     || '').trim();
     const telefono   = (e.parameter.Telefono   || '').trim();
     const habitacion = (e.parameter.Habitacion || '').trim();
+    const origen = (e.parameter.Origen || 'Web').trim();
 
     // Verificamos campos mínimos
     if (!nombre || !telefono || !correo) {
@@ -38,7 +39,8 @@ function doPost(e) {
       correo,       // Columna C: Correo
       telefono,     // Columna D: Teléfono / WhatsApp
       habitacion,   // Columna E: Tipo de habitación
-      ''            // Columna F: Estado de pago (lo llenas tú)
+      origen,       // Columna F: Web o WhatsApp
+      ''            // Columna G: Estado de pago (lo llenas tú)
     ]);
 
     // Enviamos el correo de aviso
@@ -46,11 +48,12 @@ function doPost(e) {
       to: CORREO_AVISO,
       subject: '🧶 Nueva reserva desde la Landing Page — ' + nombre,
       body:
-        'Nueva solicitud de reserva para Arte entre Puntadas:\n\n' +
+         'Nueva solicitud de reserva para Arte entre Puntadas:\n\n' +
         'Nombre:     ' + nombre + '\n' +
         'Correo:     ' + correo + '\n' +
         'Teléfono:   ' + telefono + '\n' +
-        'Habitación: ' + habitacion + '\n\n' +
+        'Habitación: ' + habitacion + '\n' +
+        'Llegó por:  ' + origen + '\n\n' +
         'Siguiente paso: Escribirle para enviarle las instrucciones para el pago.\n\n' +
         'Ver todas las reservas aquí: https://docs.google.com/spreadsheets/d/' + ID_HOJA
     });

@@ -621,10 +621,14 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
 
 .pie{ background:var(--tinta); color:var(--arena); padding-block:3.4rem; border-top:2px solid var(--dorado); }
 .pie-reja{ display:flex; flex-wrap:wrap; gap:1.6rem 3rem; align-items:center; justify-content:space-between; }
-/* Halo tenue: suaviza el corte duro del disco claro sobre el fondo oscuro. */
+/* Disco claro: el logo tiene texto negro, así que necesita fondo claro
+   para leerse sobre el marrón del pie. */
 .pie-logo{
-  width:92px; border-radius:50%; flex:none;
-  box-shadow:0 0 0 7px rgba(250,245,238,.06), 0 0 28px 10px rgba(250,245,238,.07);
+  width:104px; flex:none;
+  border-radius:50%;
+  background:#FAF5EE;
+  padding:0;
+  box-sizing:border-box;
 }
 .pie p{ margin:0; font-size:.85rem; color:rgba(237,225,209,.78); }
 @media (max-width:700px){ .pie-reja{ flex-direction:column; text-align:center; } }
@@ -1455,6 +1459,7 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
             
             <form id="form-registro" name="submit-to-google-sheet">
                <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+               <input type="hidden" id="campo-origen" name="Origen" value="Web">
                <input type="text" name="Nombre" placeholder="Tu nombre" required>
                <input type="email" name="Correo" placeholder="Tu correo electrónico" required>
                <input type="tel" name="Telefono" placeholder="Tu teléfono / WhatsApp" required>
@@ -1509,7 +1514,7 @@ section{ padding-block:clamp(4rem, 8vw, 8.5rem); position:relative; }
 <footer class="pie">
   <div class="lienzo">
     <div class="pie-reja">
-      <img class="pie-logo" src="assets/logo-disco.png" alt="Dos Agujas y Un Crochet">
+      <img class="pie-logo" src="assets/logo-disco-transparente.png" alt="Dos Agujas y Un Crochet">
       <div style="display:flex; flex-direction:column; gap:0.5rem; justify-content:center;">
         <p style="margin:0;">Arte entre Puntadas · Refugio de Santa Eulalia · 20 al 22 de noviembre de 2026</p>
         <p style="margin:0; font-size:0.85em;"><a href="terminos.html" style="color:inherit; text-decoration:underline;">Términos y condiciones</a></p>
@@ -1633,6 +1638,17 @@ const btnSubmit = document.getElementById('btn-submit');
 const scriptURL = 'https://script.google.com/macros/s/AKfycbygUrItcTzBigET6brGTajwJfjmFASkvc3z5QZc3jzKnwWUXXTxa2qQwbxRCi13DBfXLQ/exec';
 
 if (form) {
+
+  /* Origen: si el link trae ?origen=whatsapp queda registrado en la hoja.
+     Sin parámetro, el campo se queda en "Web". */
+  const paramOrigen = new URLSearchParams(location.search).get('origen');
+  if (paramOrigen) {
+    const campoOrigen = document.getElementById('campo-origen');
+    if (campoOrigen) {
+      campoOrigen.value = paramOrigen.toLowerCase() === 'whatsapp' ? 'WhatsApp' : paramOrigen;
+    }
+  }
+
   form.addEventListener('submit', e => {
     e.preventDefault();
     

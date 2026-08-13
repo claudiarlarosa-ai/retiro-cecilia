@@ -1,0 +1,536 @@
+<title>Arte entre Puntadas — Informe de entrega</title>
+
+<style>
+  :root {
+    --ground:      #FBF7F1;
+    --surface:     #F2EFE7;
+    --surface-alt: #E8EDE2;
+    --ink:         #2B302A;
+    --ink-soft:    #5F655A;
+    --ink-faint:   #8A9082;
+    --rule:        #DCD6C9;
+    --terracota:   #A8542A;
+    --bosque:      #4A6141;
+    --ok:          #4A6141;
+    --pend:        #A8542A;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #1A1D18;
+      --surface:     #22261F;
+      --surface-alt: #272C23;
+      --ink:         #EAE5D9;
+      --ink-soft:    #ABB2A2;
+      --ink-faint:   #7C8375;
+      --rule:        #363B31;
+      --terracota:   #D98A5C;
+      --bosque:      #9DB78C;
+      --ok:          #9DB78C;
+      --pend:        #D98A5C;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:      #1A1D18;
+    --surface:     #22261F;
+    --surface-alt: #272C23;
+    --ink:         #EAE5D9;
+    --ink-soft:    #ABB2A2;
+    --ink-faint:   #7C8375;
+    --rule:        #363B31;
+    --terracota:   #D98A5C;
+    --bosque:      #9DB78C;
+    --ok:          #9DB78C;
+    --pend:        #D98A5C;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 16.5px;
+    line-height: 1.62;
+    margin: 0;
+    padding: clamp(1.75rem, 5vw, 4.5rem) clamp(1.1rem, 5vw, 2rem) 5rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 50rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.25rem;
+  }
+
+  h1, h2, h3 {
+    font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-weight: 600;
+    text-wrap: balance;
+    margin: 0;
+    letter-spacing: -0.012em;
+  }
+  h1 { font-size: clamp(2rem, 5.5vw, 2.9rem); line-height: 1.12; }
+  h2 { font-size: clamp(1.35rem, 3.4vw, 1.7rem); line-height: 1.2; }
+  h3 { font-size: 1.06rem; line-height: 1.35; font-weight: 600; }
+
+  p { margin: 0; }
+  a { color: var(--terracota); text-underline-offset: 3px; }
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--terracota);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+
+  /* pespunte — línea de puntada */
+  .stitch {
+    height: 2px;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--bosque) 0 9px,
+      transparent 9px 17px
+    );
+    opacity: 0.55;
+  }
+
+  header { display: flex; flex-direction: column; gap: 1.15rem; }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 0.4rem 2rem;
+    font-size: 0.85rem; color: var(--ink-soft);
+  }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .lede {
+    font-family: ui-serif, "Iowan Old Style", Palatino, Georgia, serif;
+    font-size: clamp(1.05rem, 2.4vw, 1.22rem);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 40ch;
+  }
+
+  section { display: flex; flex-direction: column; gap: 1.15rem; }
+  .sec-head { display: flex; flex-direction: column; gap: 0.35rem; }
+
+  /* circuito */
+  .flow { display: grid; gap: 0.9rem; grid-template-columns: 1fr; }
+  @media (min-width: 46rem) { .flow { grid-template-columns: repeat(3, 1fr); } }
+  .stage {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 1.1rem 1.15rem 1.25rem;
+    display: flex; flex-direction: column; gap: 0.7rem;
+  }
+  .stage .eyebrow { color: var(--bosque); }
+  .stage ul { margin: 0; padding-left: 1.05rem; display: flex; flex-direction: column; gap: 0.45rem; }
+  .stage li { font-size: 0.93rem; color: var(--ink-soft); }
+  .stage li b { color: var(--ink); font-weight: 600; }
+
+  /* sistemas */
+  .systems { display: flex; flex-direction: column; gap: 1.4rem; }
+  .system { display: flex; flex-direction: column; gap: 0.65rem; }
+  .system-title { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+  .system ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .system li { color: var(--ink-soft); }
+  .system li b { color: var(--ink); font-weight: 600; }
+
+  .tag {
+    font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 700; padding: 0.18rem 0.5rem;
+    border: 1px solid currentColor; color: var(--ok);
+  }
+
+  .ref {
+    display: inline-block;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.76rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.01em;
+  }
+  .system li .ref { margin-left: 0.15rem; }
+  ul.evts {
+    margin: 0.45rem 0 0;
+    padding-left: 1.05rem;
+    display: flex; flex-direction: column; gap: 0.3rem;
+    list-style: none;
+    border-left: 1px solid var(--rule);
+  }
+  ul.evts li { font-size: 0.95rem; }
+
+  /* tablas */
+  .tbl-scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.92rem; min-width: 30rem; }
+  th, td { text-align: left; padding: 0.62rem 0.8rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th {
+    font-size: 0.7rem; letter-spacing: 0.11em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 700; border-bottom-color: var(--ink-faint);
+  }
+  td b { font-weight: 600; }
+  .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .free { color: var(--ok); font-weight: 600; }
+
+  /* decisiones */
+  .why { display: flex; flex-direction: column; gap: 1.1rem; }
+  .why-item {
+    border-left: 2px solid var(--terracota);
+    padding-left: 1rem;
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .why-item p { color: var(--ink-soft); font-size: 0.95rem; }
+
+  /* pendientes */
+  .todo { background: var(--surface-alt); border: 1px solid var(--rule); padding: 1.3rem 1.4rem; }
+  .todo ol { margin: 0.9rem 0 0; padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.55rem; }
+  .todo li { color: var(--ink-soft); }
+  .todo li b { color: var(--ink); font-weight: 600; }
+
+  footer { color: var(--ink-faint); font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.3rem; }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Informe de entrega</p>
+    <h1>Arte entre Puntadas<br>Sistema de reservas y atención</h1>
+    <div class="stitch"></div>
+    <div class="meta">
+      <span>Para <b>Cecilia McLaughlin</b></span>
+      <span>Por <b>Claudia Rodríguez La Rosa</b></span>
+      <span>Agosto 2026</span>
+    </div>
+    <p class="lede">
+      Cinco piezas que trabajan juntas: una página que presenta el retiro,
+      un formulario que registra a quien se anima, una asistente que atiende
+      WhatsApp a toda hora, una tabla donde todo aterriza, y la medición
+      para saber qué está funcionando.
+    </p>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">El circuito</p>
+      <h2>Cómo llega una participante</h2>
+    </div>
+    <p>
+      No importa por dónde entre — la web o WhatsApp — el camino termina en el
+      mismo sitio: una fila en tu tabla de reservas y un correo avisándote.
+    </p>
+
+    <div class="flow">
+      <div class="stage">
+        <p class="eyebrow">Entrada</p>
+        <ul>
+          <li><b>La página del retiro</b>, con toda la información y el formulario.</li>
+          <li><b>WhatsApp</b>, desde el botón de la página o desde Instagram.</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <p class="eyebrow">Atención</p>
+        <ul>
+          <li>La <b>asistente</b> responde precios, nivel, qué incluye, fechas y traslado.</li>
+          <li>Si alguien quiere reservar, le manda el <b>formulario</b>.</li>
+          <li>Si necesita hablar contigo, te la <b>deriva y te avisa</b>.</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <p class="eyebrow">Registro</p>
+        <ul>
+          <li>Cada reserva cae en tu <b>tabla</b>, con habitación y origen.</li>
+          <li>Te llega un <b>correo</b> con los datos y el siguiente paso.</li>
+          <li>Ahí llevas el control del <b>50% y del saldo</b>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="stitch"></div>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Lo entregado</p>
+      <h2>Cinco sistemas</h2>
+    </div>
+
+    <div class="systems">
+
+      <div class="system">
+        <div class="system-title">
+          <h3>La página del retiro</h3>
+          <span class="tag">Publicada</span>
+        </div>
+        <ul>
+          <li>Diseño y desarrollo completo de <b>dosagujasyuncrochet.com</b>: presentación del retiro, talleres, el CAL, el lugar, el programa, testimonios y precios.</li>
+          <li>Compra y configuración del <b>dominio</b> y del <b>hosting</b>, incluida la gestión del pago.</li>
+          <li><b>Publicación en Hostinger</b> y puesta en producción.</li>
+        </ul>
+      </div>
+
+      <div class="system">
+        <div class="system-title">
+          <h3>El formulario de reservas</h3>
+          <span class="tag">Conectado</span>
+        </div>
+        <ul>
+          <li>Conexión del formulario con <b>Google Sheets</b>: cada solicitud queda registrada al instante.</li>
+          <li><b>Aviso por correo</b> con los datos de la persona y el siguiente paso a dar.</li>
+          <li>Campo de <b>tipo de habitación</b>, porque define el precio.</li>
+          <li><b>Mensaje de confirmación</b> que le dice a la persona qué pasa después, para que no se quede en duda.</li>
+          <li><b>Filtro antispam</b> invisible, para que la tabla no se llene de basura.</li>
+        </ul>
+      </div>
+
+      <div class="system">
+        <div class="system-title">
+          <h3>La asistente de WhatsApp</h3>
+          <span class="tag">Activa</span>
+        </div>
+        <ul>
+          <li>Alta del número en <b>WhatsApp Business API</b> y conexión con Meta.</li>
+          <li>Cuenta y configuración en <b>SellerChat</b>, la plataforma desde donde se administra todo.</li>
+          <li><b>Entrenamiento completo de la asistente</b>: tono, límites, manejo de objeciones, diagnóstico de nivel de crochet, y toda la información del retiro.</li>
+          <li>Reglas duras: no inventa precios ni fechas, no da descuentos, no promete vacantes, y cita las condiciones de pago y cancelación al pie de la letra.</li>
+        </ul>
+      </div>
+
+      <div class="system">
+        <div class="system-title">
+          <h3>Las automatizaciones</h3>
+          <span class="tag">Funcionando</span>
+        </div>
+        <ul>
+          <li><b>Seguimiento automático</b> a quien pregunta y no responde, una hora después y una sola vez, en horario razonable.</li>
+          <li><b>Aviso inmediato</b> cuando alguien pide hablar contigo, con la conversación marcada para que no reciba mensajes automáticos encima.</li>
+          <li><b>Etiquetas</b> para separar interesadas, derivadas, reservas y quienes no califican.</li>
+          <li><b>Lista de contacto con permiso</b>: a quien no reserva se le ofrece avisarle de próximas actividades, y sus datos solo se piden si acepta.</li>
+        </ul>
+      </div>
+
+      <div class="system">
+        <div class="system-title">
+          <h3>La medición para publicidad</h3>
+          <span class="tag">Instalada</span>
+        </div>
+        <ul>
+          <li>Creación del <b>píxel de Meta</b> e instalación en la página del retiro.
+            <span class="ref">Pixel Landing Retiro · ID 4287002218231924</span></li>
+          <li><b>Tres eventos</b> que miden el recorrido completo, no solo las visitas:
+            <ul class="evts">
+              <li><b>Quién llega a la página</b> <span class="ref">PageView</span></li>
+              <li><b>Quién da el paso de escribir por WhatsApp</b> <span class="ref">Contact</span></li>
+              <li><b>Quién completa el formulario de reserva</b> <span class="ref">Lead</span></li>
+            </ul>
+          </li>
+          <li>Con los tres se puede saber <b>cuántas de las visitas terminan en reserva</b>, y no solo cuánta gente entró. Es lo que permite invertir en publicidad sabiendo qué devuelve cada sol.</li>
+          <li>Todo quedó dentro de <b>tu Business Manager</b>: el activo y los datos que genera son tuyos, no de quien maneje la publicidad en cada momento.</li>
+          <li>Queda <b>listo para usarse</b> por la persona a cargo de la cuenta publicitaria, sin trabajo previo de su parte.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="stitch"></div>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Criterio</p>
+      <h2>Decisiones que protegen la venta</h2>
+    </div>
+
+    <div class="why">
+      <div class="why-item">
+        <h3>Una asistente que conversa, no un menú de opciones</h3>
+        <p>
+          El plan original era un menú numerado. En WhatsApp la gente escribe antes
+          de leer las opciones, y un menú que no entiende lo que le escriben se siente
+          roto. La asistente entiende cualquier pregunta y conserva todas tus respuestas,
+          palabra por palabra.
+        </p>
+      </div>
+      <div class="why-item">
+        <h3>Precios y cancelación se citan literales</h3>
+        <p>
+          La asistente tiene prohibido parafrasear o calcular montos. Si le preguntan
+          cuánto es el 50%, no responde una cifra: entrega la condición tal como está
+          escrita. Un porcentaje mal dicho en una venta de este monto es un problema,
+          no una errata.
+        </p>
+      </div>
+      <div class="why-item">
+        <h3>El nivel de crochet no se pregunta de entrada</h3>
+        <p>
+          El requisito es real, pero anunciarlo al saludar espanta a tejedoras con nivel
+          que solo dudan de sí mismas. La asistente pregunta qué ha tejido y evalúa;
+          si no queda claro, te la pasa antes que arriesgar una vacante.
+        </p>
+      </div>
+      <div class="why-item">
+        <h3>Un solo mensaje de seguimiento</h3>
+        <p>
+          Nadie decide una inversión así en una tarde: lo conversa con su pareja o con
+          una amiga. Un recordatorio se agradece; el segundo se lee como acoso. Y quien
+          ya está hablando contigo queda excluido automáticamente.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="stitch"></div>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Operación</p>
+      <h2>Qué cuesta mantenerlo</h2>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>Servicio</th><th>Costo</th><th>Detalle</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>SellerChat</b></td>
+            <td class="num free">Sin costo</td>
+            <td>Incluye 500 conversaciones. No hay suscripción mensual: si algún día se agotan, se recargan.</td>
+          </tr>
+          <tr>
+            <td><b>Conversaciones de WhatsApp</b></td>
+            <td class="num free">Sin costo</td>
+            <td>Cuando la persona escribe primero, responder es gratis durante 24 horas.</td>
+          </tr>
+          <tr>
+            <td><b>Recordatorios que salen de ti</b></td>
+            <td class="num">Por mensaje</td>
+            <td>Saldo pendiente, inicio del CAL, punto de encuentro. Meta cobra por cada envío fuera de esas 24 horas.</td>
+          </tr>
+          <tr>
+            <td><b>Formulario, tabla y correos</b></td>
+            <td class="num free">Sin costo</td>
+            <td>Funciona sobre tu cuenta de Google.</td>
+          </tr>
+          <tr>
+            <td><b>Dominio y hosting</b></td>
+            <td class="num">Anual</td>
+            <td>Renovación una vez al año.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Autonomía</p>
+      <h2>Lo que puedes cambiar sin ayuda</h2>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>Qué</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Precios, fechas y condiciones de pago</td><td>SellerChat → Entrenamiento</td></tr>
+          <tr><td>El texto del mensaje de seguimiento</td><td>SellerChat → Plantillas</td></tr>
+          <tr><td>Marcar quién pagó y quién debe el saldo</td><td>Tu tabla de reservas</td></tr>
+          <tr><td>Clasificar conversaciones</td><td>SellerChat → Etiquetas</td></tr>
+          <tr><td>Responder tú misma en cualquier momento</td><td>SellerChat → Chat</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--ink-soft); font-size:0.95rem;">
+      Las etiquetas no son solo para ordenar: apagan los mensajes automáticos.
+      Quien queda marcada como derivada o como reserva deja de recibir seguimientos.
+    </p>
+  </section>
+
+  <div class="stitch"></div>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Propiedad</p>
+      <h2>A nombre de quién quedó cada cosa</h2>
+    </div>
+    <p>
+      Las plataformas se crearon a tu nombre. Si mañana trabajas con otra persona,
+      no tienes que rehacer nada ni pedirle permiso a nadie.
+    </p>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>Servicio</th><th>Cuenta</th><th>Qué contiene</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>SellerChat</b></td>
+            <td>ceciliamclaughlin2011@gmail.com</td>
+            <td>La asistente, las plantillas, los automatismos y todas las conversaciones.</td>
+          </tr>
+          <tr>
+            <td><b>Hostinger</b></td>
+            <td>ceciliamclaughlin2004@yahoo.ca</td>
+            <td>El dominio dosagujasyuncrochet.com y el alojamiento de la página.</td>
+          </tr>
+          <tr>
+            <td><b>Google</b></td>
+            <td>Mi cuenta de Drive, compartida contigo</td>
+            <td>La tabla de reservas y el programa que la alimenta desde el formulario. Queda así por preferencia tuya; se puede transferir a tu cuenta cuando quieras.</td>
+          </tr>
+          <tr>
+            <td><b>Meta Business</b></td>
+            <td>Tu Business Manager</td>
+            <td>El píxel y el historial de eventos de la página.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--ink-soft); font-size:0.95rem;">
+      Sobre la tabla de reservas: como vive en mi Drive, los correos de aviso salen desde
+      esa cuenta. Es la pieza a mover primero si algún día quieres independencia total del
+      sistema, y conviene hacerlo antes de que haya inscripciones que administrar.
+    </p>
+    <p style="color:var(--ink-soft); font-size:0.95rem;">
+      Las contraseñas se entregan por separado, nunca dentro de este documento.
+      Dos recomendaciones al recibirlas: <b>cámbialas</b>, y <b>usa una distinta para cada
+      servicio</b> — hoy varias comparten la misma, y con eso una sola filtración abre todo.
+    </p>
+  </section>
+
+  <div class="stitch"></div>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">Para cerrar</p>
+      <h2>Lo que falta de tu lado</h2>
+    </div>
+    <div class="todo">
+      <p>Son datos que la asistente hoy no puede responder. Mientras falten, deriva esas consultas a ti.</p>
+      <ol>
+        <li><b>Cuántas vacantes quedan.</b> Tu página dice que son 20 participantes, pero nadie sabe cuántas siguen libres — y es de lo que más van a preguntar. Define cómo quieres llevar esa cuenta.</li>
+        <li><b>Qué pasa después del 20 de setiembre.</b> La tabla de precios termina ahí y el retiro es el 20 de noviembre.</li>
+        <li><b>Si la habitación doble se comparte</b> o queda para una sola persona. Hoy cuesta más que la simple y van a preguntar por qué.</li>
+        <li><b>Cuánto cuestan los materiales del CAL</b>, el único gasto que la participante asume aparte.</li>
+        <li><b>Cuándo empieza exactamente el CAL</b> y si se puede participar del retiro sin hacerlo.</li>
+        <li><b>Si aceptas pago en dólares.</b></li>
+        <li><b>A qué correo quieres que lleguen los avisos</b> de cada reserva nueva.</li>
+        <li><b>Si asumes el compromiso</b> de escribirle a quien pidió recibir novedades. La asistente lo está ofreciendo.</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="stitch"></div>
+
+  <footer>
+    <p>Claudia Rodríguez La Rosa</p>
+    <p>Documento de entrega — Arte entre Puntadas, retiro del 20 al 22 de noviembre de 2026.</p>
+  </footer>
+
+</div>
